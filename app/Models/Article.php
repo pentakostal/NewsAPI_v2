@@ -10,11 +10,13 @@ class Article
     private string $url;
     private ?string $picture;
 
-    public function __construct(string  $author,
-                                string  $title,
-                                string  $description,
-                                string  $url,
-                                ?string $picture = null)
+    public function __construct(
+        string  $author,
+        string  $title,
+        string  $description,
+        string  $url,
+        ?string $picture = null
+    )
     {
         $this->author = $author;
         $this->title = $title;
