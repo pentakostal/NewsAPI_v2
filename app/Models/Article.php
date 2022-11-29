@@ -20,7 +20,7 @@ class Article
     {
         $this->author = $author;
         $this->title = $title;
-        $this->description = $description;
+        $this->description = strip_tags($description);
         $this->url = $url;
         $this->picture = $picture;
     }
