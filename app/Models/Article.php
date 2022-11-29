@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Articles
+class Article
 {
 
 }
