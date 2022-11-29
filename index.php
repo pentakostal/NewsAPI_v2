@@ -1,14 +1,21 @@
 <?php
 
 use App\Controllers\ArticlesController;
-use App\Models\Article;
-use jcobhams\NewsApi\NewsApi;
 
 require_once 'vendor/autoload.php';
 
+//api key setup
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
+
+//Router
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $route) {
     $route->addRoute('GET', '/', [ArticlesController::class, 'index']);
 });
+
+$loader = new \Twig\Loader\FilesystemLoader('views');
+$twig = new \Twig\Environment($loader);
 
 // Fetch method and URI from somewhere
 $httpMethod = $_SERVER['REQUEST_METHOD'];
@@ -37,28 +44,9 @@ switch ($routeInfo[0]) {
 
         $respones = (new $controller)->{$method}($vars);
 
-        var_dump($respones);die;
+        if ($respones instanceof \App\Templete) {
+            echo $twig->render($respones->getPath(), $respones->getParams());
+        }
 
         break;
 }
-
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
-
-$newsapi = new NewsApi($_ENV['API_KEY']);
-
-$articlesApiRespones = $newsapi->getEverything("NHL");
-
-$articles = [];
-foreach ($articlesApiRespones->articles as $article) {
-    $articles [] = new Article(
-        $article->title,
-        $article->description,
-        $article->url,
-        $article->author,
-        $article->picture
-    );
-}
-
-echo "<pre>";
-var_dump($articles);
