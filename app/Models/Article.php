@@ -14,7 +14,7 @@ class Article
         string  $title,
         string  $description,
         string  $url,
-        ?string  $author,
+        ?string  $author = null,
         ?string $picture = null
     )
     {

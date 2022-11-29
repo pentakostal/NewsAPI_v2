@@ -1,5 +1,5 @@
 <?php
- namespace App\Conroller;
+ namespace App\Controllers;
 
 class ArticlesController
 {
