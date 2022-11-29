@@ -1,15 +1,15 @@
 <?php
  namespace App\Controllers;
 
+use App\Templete;
+
 class ArticlesController
 {
-    public function index()
+    public function index(): Templete
     {
-        var_dump("hello from ArticlesController");
+        return new Templete(
+            'articles/index.twig'
+        );
     }
 
-    public function create()
-    {
-        var_dump("create new article");
-    }
 }

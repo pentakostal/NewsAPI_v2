@@ -35,7 +35,9 @@ switch ($routeInfo[0]) {
 
         [$controller, $method] = $handler;
 
-        (new $controller)->{$method}($vars);
+        $respones = (new $controller)->{$method}($vars);
+
+        var_dump($respones);die;
 
         break;
 }
