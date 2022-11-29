@@ -1,33 +1,21 @@
 <?php
- namespace App\Controllers;
+namespace App\Controllers;
 
-use App\Models\Article;
+use App\Services\IndexArticleService;
 use App\Templete;
-use jcobhams\NewsApi\NewsApi;
 
 class ArticlesController
 {
     public function index(): Templete
     {
-        $newsapi = new NewsApi($_ENV['API_KEY']);
+        $search = $_GET['search'] ?? "NHL";
 
-        $articlesApiRespones = $newsapi->getEverything("NHL");
-
-        $articles = [];
-        foreach ($articlesApiRespones->articles as $article) {
-            $articles [] = new Article(
-                $article->title,
-                $article->description,
-                $article->url,
-                $article->author,
-                $article->urlToImage
-            );
-        }
+        $article = (new IndexArticleService())->execute($search);
 
         return new Templete(
             'articles/index.twig',
             [
-                'articles' => $articles
+                'articles' => $article->get()
             ]
         );
     }
