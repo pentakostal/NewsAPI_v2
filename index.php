@@ -10,17 +10,7 @@ $dotenv->load();
 
 $newsapi = new NewsApi($_ENV['API_KEY']);
 
-$articlesApiRespones = $newsapi->getEverything(
-    $q = "NHL",
-    $sources = null,
-    $domains = null,
-    $exclude_domains = "youtube.com",
-    $from = null,
-    $to = null,
-    $language = "en",
-    $sort_by = null,
-    $page_size = 10,
-    $page = null);
+$articlesApiRespones = $newsapi->getEverything("NHL");
 
 $articles = [];
 foreach ($articlesApiRespones->articles as $article) {
