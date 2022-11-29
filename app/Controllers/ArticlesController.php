@@ -20,7 +20,7 @@ class ArticlesController
                 $article->description,
                 $article->url,
                 $article->author,
-                $article->picture
+                $article->urlToImage
             );
         }
 
