@@ -41,9 +41,9 @@ class RegistrationService
                 "email" => $newUser->getEmail(),
                 "password" => password_hash($newUser->getPassword(), PASSWORD_DEFAULT)
             ]);
-            echo "signup ok";
+            var_dump("signup ok");
         } else {
-            echo "email exists";
+            var_dump("email exists");
         }
     }
 }
