@@ -1,6 +1,8 @@
 <?php
 
 use App\Controllers\ArticlesController;
+use App\Controllers\LogInController;
+use App\Controllers\RegistrationController;
 
 require_once 'vendor/autoload.php';
 
@@ -12,6 +14,9 @@ $dotenv->load();
 //Router
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $route) {
     $route->addRoute('GET', '/', [ArticlesController::class, 'index']);
+    $route->addRoute('GET', '/registration', [RegistrationController::class, 'showRegistrationForm']);
+    $route->addRoute('POST', '/registration', [RegistrationController::class, 'storeRegistrationForm']);
+    $route->addRoute('GET', '/login', [LogInController::class, 'logIn']);
 });
 
 $loader = new \Twig\Loader\FilesystemLoader('views');
