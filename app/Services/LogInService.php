@@ -6,7 +6,7 @@ use Doctrine\DBAL\DriverManager;
 
 require_once 'vendor/autoload.php';
 
-class RegistrationService
+class LogInService
 {
     private $connection;
 
@@ -25,25 +25,21 @@ class RegistrationService
 
     }
 
-    public function execute(RegistrationServiceRequest $request)
+    public function execute(LogInServiceRequest $request)
     {
-        $newUser = $request;
+        $logInUser = $request;
 
         $sql = "SELECT * FROM users WHERE email = :email";
         $stmt = $this->connection->prepare($sql);
-        $stmt->bindValue("email", $newUser->getEmail());
+        $stmt->bindValue("email", $logInUser->getEmail());
         $resultSet = $stmt->executeQuery();
         $users = $resultSet->fetchAllAssociative();
+        echo "<pre>";
 
-        if ($users == null) {
-            $this->connection->insert('users', [
-                "name" => $newUser->getName(),
-                "email" => $newUser->getEmail(),
-                "password" => password_hash($newUser->getPassword(), PASSWORD_DEFAULT)
-            ]);
-            echo "signup ok";
-        } else {
-            echo "email exists";
+        if ($users) {
+            if (password_verify($logInUser->getPassword(), $users[0]["password"])) {
+                var_dump("log in ok");
+            }
         }
     }
 }

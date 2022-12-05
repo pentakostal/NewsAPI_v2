@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Services\LogInService;
+use App\Services\LogInServiceRequest;
 use App\Templete;
 
 class LogInController
@@ -13,6 +15,12 @@ class LogInController
 
     public function logToSystem()
     {
-
+        $logInService = new LogInService();
+        $logInService->execute(
+            new LogInServiceRequest(
+                $_POST["email"],
+                $_POST["password"]
+            )
+        );
     }
 }

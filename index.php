@@ -17,6 +17,7 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $rout
     $route->addRoute('GET', '/registration', [RegistrationController::class, 'showRegistrationForm']);
     $route->addRoute('POST', '/registration', [RegistrationController::class, 'storeRegistrationForm']);
     $route->addRoute('GET', '/login', [LogInController::class, 'logIn']);
+    $route->addRoute('POST', '/login', [LogInController::class, 'logToSystem']);
 });
 
 $loader = new \Twig\Loader\FilesystemLoader('views');
