@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Redirect;
 use App\Services\LogInService;
 use App\Services\LogInServiceRequest;
 use App\Templete;
@@ -16,11 +17,15 @@ class LogInController
     public function logToSystem()
     {
         $logInService = new LogInService();
-        $logInService->execute(
+        if($logInService->execute(
             new LogInServiceRequest(
                 $_POST["email"],
                 $_POST["password"]
             )
-        );
+        )){
+            return new Redirect("/user");
+        }
+
+        //return new Redirect("/user");
     }
 }
