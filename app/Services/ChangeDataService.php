@@ -25,15 +25,30 @@ class ChangeDataService
 
     public function execute(ChangeDataServiceRequest $request)
     {
-        $newUser = $request;
+        $userData = $request;
 
         $sql = "SELECT * FROM users WHERE id = :id";
         $stmt = $this->connection->prepare($sql);
-        $stmt->bindValue("id", $_SESSION['userId']);
+        $stmt->bindValue("id", $_SESSION["userId"]);
         $resultSet = $stmt->executeQuery();
         $users = $resultSet->fetchAllAssociative();
 
-        echo "<pre>";
-        var_dump($users);
+        if (password_verify($userData->getPasswordConfirmation(), $users[0]["password"])) {
+            if ($userData->getNameNew() != null) {
+                $this->connection->update('users', ['name' => $userData->getNameNew()], ['id' => $_SESSION['userId']]);
+            }
+
+            if ($userData->getEmailNew() != null) {
+                $this->connection->update('users', ['email' => $userData->getEmailNew()], ['id' => $_SESSION['userId']]);
+            }
+
+            if ($userData->getPasswordNew() != null && $userData->getPasswordNew() == $userData->getPasswordRepeatNew()) {
+                $newPasswordHash = password_hash($userData->getPasswordNew(), PASSWORD_DEFAULT);
+                $this->connection->update('users', ['password' => $newPasswordHash], ['id' => $_SESSION['userId']]);
+            }
+
+            echo "<pre>";
+            var_dump("User data update");
+        }
     }
 }
