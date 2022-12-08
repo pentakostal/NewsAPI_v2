@@ -6,7 +6,7 @@ use Doctrine\DBAL\DriverManager;
 
 require_once 'vendor/autoload.php';
 
-class RegistrationService
+class ChangeDataService
 {
     private $connection;
 
@@ -23,24 +23,17 @@ class RegistrationService
         $this->connection = DriverManager::getConnection($connectionParams);
     }
 
-    public function execute(RegistrationServiceRequest $request)
+    public function execute(ChangeDataServiceRequest $request)
     {
         $newUser = $request;
 
-        $sql = "SELECT * FROM users WHERE email = :email";
+        $sql = "SELECT * FROM users WHERE id = :id";
         $stmt = $this->connection->prepare($sql);
-        $stmt->bindValue("email", $newUser->getEmail());
+        $stmt->bindValue("id", $_SESSION['userId']);
         $resultSet = $stmt->executeQuery();
         $users = $resultSet->fetchAllAssociative();
 
-        if ($users == null && $newUser->getPassword() == $newUser->getPasswordRepeat()) {
-            $this->connection->insert('users', [
-                "name" => $newUser->getName(),
-                "email" => $newUser->getEmail(),
-                "password" => password_hash($newUser->getPassword(), PASSWORD_DEFAULT)
-            ]);
-            return true;
-        }
-        return false;
+        echo "<pre>";
+        var_dump($users);
     }
 }

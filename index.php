@@ -1,5 +1,9 @@
 <?php
 
+require_once 'vendor/autoload.php';
+
+session_start();
+
 use App\Controllers\ArticlesController;
 use App\Controllers\ArticlesUsersController;
 use App\Controllers\LogInController;
@@ -7,8 +11,6 @@ use App\Controllers\RegistrationController;
 use App\Controllers\SuccessfulRegistration;
 use App\Controllers\UserDataChange;
 use App\Redirect;
-
-require_once 'vendor/autoload.php';
 
 //api key setup
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
@@ -27,6 +29,7 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $rout
     $route->addRoute('GET', '/logout', [LogInController::class, 'logOut']);
     $route->addRoute('GET', '/userDataChange', [UserDataChange::class, 'index']);
     $route->addRoute('POST', '/successfulRegistration', [RegistrationController::class, 'successfulRegistration']);
+    $route->addRoute('POST', '/userDataChange', [UserDataChange::class, 'changeData']);
 });
 
 $loader = new \Twig\Loader\FilesystemLoader('views');

@@ -11,7 +11,7 @@ class ArticlesUsersController
         $search = $_GET['search'] ?? "NBA";
 
         $article = (new IndexArticleService())->execute($search);
-
+        var_dump($_SESSION['userId']);
         return new Templete(
             'logedin/indexUser.twig',
             [

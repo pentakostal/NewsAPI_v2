@@ -13,7 +13,7 @@ class RegistrationController
         return new Templete('registration/registration.twig');
     }
 
-    public function storeRegistrationForm()
+    public function storeRegistrationForm(): Templete
     {
         $registerService = new RegistrationService();
         if($registerService->execute(
