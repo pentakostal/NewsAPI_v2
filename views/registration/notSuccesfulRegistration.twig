@@ -40,23 +40,10 @@
     <a href="#" class="fh5co-offcanvass-close js-fh5co-offcanvass-close">Menu <i class="icon-cross"></i> </a>
     <h1 class="fh5co-logo"><a class="navbar-brand" href="/">Menu</a></h1>
     <ul>
-        <form class="center" action="/userDataChange">
-            <button type="submit">Personal Cabinet</button>
+        <form class="center" action="/login">
+            <button type="submit">Log in</button>
         </form>
-        <form class="center" action="/logout">
-            <button type="submit">Log Out</button>
-        </form>
-        <form class="center" action="/?search=">
-            <br><label>Search</label>
-            <br>
-            <input type="text" id="search" name="search">
-            <input type="submit" value="Ok">
-            <li><a href="/?search=business">BUSINESS</a></li>
-            <li><a href="/?search=art">ART</a></li>
-            <li><a href="/?search=sports">SPORTS</a></li>
-            <li><a href="/?search=health">HEALTH</a></li>
-            <li><a href="/?search=video_games">VIDEO GAMES</a></li>
-        </form>
+
     </ul>
 </div>
 <header id="fh5co-header" role="banner">
@@ -64,7 +51,7 @@
         <div class="row">
             <div class="col-md-12">
                 <a href="#" class="fh5co-menu-btn js-fh5co-menu-btn">Menu <i class="icon-menu"></i></a>
-                <a class="navbar-brand" href="/">News articles</a>
+                <a class="navbar-brand">Registration</a>
             </div>
         </div>
     </div>
@@ -77,19 +64,17 @@
         <div class="row">
 
             <div id="fh5co-board" data-columns>
-                {% for article in articles %}
-                    <div class="item">
-                        <div class="animate-box">
-                            <a href="{{ article.getPicture }}" class="image-popup fh5co-board-img" title="{{ article.getTitle }}">
-                                <img src="{{ article.getPicture }}" alt="Image" onerror="this.src='../../public%20/images/img_noImg.jpg'"></a>
-                        </div>
-                        <a href="{{ article.getUrl }}" target="_blank">{{ article.getTitle }}</a>
-                        <div class="fh5co-desc">{{ article.getDescription }}</div>
-                        {% if article.getAuthor != null %}
-                            <div class="fh5co-desc">By {{ article.getAuthor }}</div>
-                        {% endif %}
+                <div class="item">
+                    <div class="animate-box">
+                        <h1>Registration failed</h1>
+                        <form class="center" action="/registration">
+                            <button type="submit">Try again</button>
+                        </form>
+                        <form class="center" action="/">
+                            <button type="submit">Return to home</button>
+                        </form>
                     </div>
-                {% endfor %}
+                </div>
             </div>
         </div>
     </div>

@@ -16,12 +16,16 @@ class RegistrationController
     public function storeRegistrationForm()
     {
         $registerService = new RegistrationService();
-        $registerService->execute(
+        if($registerService->execute(
             new RegistrationServiceRequest(
                 $_POST["name"],
                 $_POST["email"],
-                $_POST["password"]
+                $_POST["password"],
+                $_POST["psw-repeat"]
             )
-        );
+        )){
+            return new Templete('registration/succesfulRegistration.twig');
+        }
+        return new Templete('registration/notSuccesfulRegistration.twig');
     }
 }

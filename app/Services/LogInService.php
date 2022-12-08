@@ -39,11 +39,9 @@ class LogInService
 
         if ($users) {
             if (password_verify($logInUser->getPassword(), $users[0]["password"])) {
-                var_dump("log in");
                 return true;
             }
         }
-        var_dump("something wrong");
         return false;
     }
 }

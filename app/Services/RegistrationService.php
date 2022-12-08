@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Redirect;
 use Doctrine\DBAL\DriverManager;
 
 require_once 'vendor/autoload.php';
@@ -35,15 +36,14 @@ class RegistrationService
         $resultSet = $stmt->executeQuery();
         $users = $resultSet->fetchAllAssociative();
 
-        if ($users == null) {
+        if ($users == null && $newUser->getPassword() == $newUser->getPasswordRepeat()) {
             $this->connection->insert('users', [
                 "name" => $newUser->getName(),
                 "email" => $newUser->getEmail(),
                 "password" => password_hash($newUser->getPassword(), PASSWORD_DEFAULT)
             ]);
-            var_dump("signup ok");
-        } else {
-            var_dump("email exists");
+            return true;
         }
+        return false;
     }
 }

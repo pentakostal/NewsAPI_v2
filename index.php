@@ -4,6 +4,8 @@ use App\Controllers\ArticlesController;
 use App\Controllers\ArticlesUsersController;
 use App\Controllers\LogInController;
 use App\Controllers\RegistrationController;
+use App\Controllers\SuccessfulRegistration;
+use App\Controllers\UserDataChange;
 use App\Redirect;
 
 require_once 'vendor/autoload.php';
@@ -20,7 +22,11 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $rout
     $route->addRoute('POST', '/registration', [RegistrationController::class, 'storeRegistrationForm']);
     $route->addRoute('GET', '/login', [LogInController::class, 'logIn']);
     $route->addRoute('POST', '/login', [LogInController::class, 'logToSystem']);
+    $route->addRoute('GET', '/logFailed', [LogInController::class, 'logFailed']);
     $route->addRoute('GET', '/user', [ArticlesUsersController::class, 'index']);
+    $route->addRoute('GET', '/logout', [LogInController::class, 'logOut']);
+    $route->addRoute('GET', '/userDataChange', [UserDataChange::class, 'index']);
+    $route->addRoute('POST', '/successfulRegistration', [RegistrationController::class, 'successfulRegistration']);
 });
 
 $loader = new \Twig\Loader\FilesystemLoader('views');

@@ -25,7 +25,16 @@ class LogInController
         )){
             return new Redirect("/user");
         }
+        return new Redirect("/logFailed");
+    }
 
-        //return new Redirect("/user");
+    public function logOut(): Redirect
+    {
+        return new Redirect("/");
+    }
+
+    public function logFailed(): Templete
+    {
+        return new Templete('login/loginFailed.twig');
     }
 }

@@ -40,22 +40,8 @@
     <a href="#" class="fh5co-offcanvass-close js-fh5co-offcanvass-close">Menu <i class="icon-cross"></i> </a>
     <h1 class="fh5co-logo"><a class="navbar-brand" href="/">Menu</a></h1>
     <ul>
-        <form class="center" action="/userDataChange">
-            <button type="submit">Personal Cabinet</button>
-        </form>
         <form class="center" action="/logout">
             <button type="submit">Log Out</button>
-        </form>
-        <form class="center" action="/?search=">
-            <br><label>Search</label>
-            <br>
-            <input type="text" id="search" name="search">
-            <input type="submit" value="Ok">
-            <li><a href="/?search=business">BUSINESS</a></li>
-            <li><a href="/?search=art">ART</a></li>
-            <li><a href="/?search=sports">SPORTS</a></li>
-            <li><a href="/?search=health">HEALTH</a></li>
-            <li><a href="/?search=video_games">VIDEO GAMES</a></li>
         </form>
     </ul>
 </div>
@@ -77,19 +63,31 @@
         <div class="row">
 
             <div id="fh5co-board" data-columns>
-                {% for article in articles %}
                     <div class="item">
                         <div class="animate-box">
-                            <a href="{{ article.getPicture }}" class="image-popup fh5co-board-img" title="{{ article.getTitle }}">
-                                <img src="{{ article.getPicture }}" alt="Image" onerror="this.src='../../public%20/images/img_noImg.jpg'"></a>
-                        </div>
-                        <a href="{{ article.getUrl }}" target="_blank">{{ article.getTitle }}</a>
-                        <div class="fh5co-desc">{{ article.getDescription }}</div>
-                        {% if article.getAuthor != null %}
-                            <div class="fh5co-desc">By {{ article.getAuthor }}</div>
-                        {% endif %}
+                            <form action="/userDataChange" method="post">
+                                <h1>User personal data change</h1>
+                                <p>Please fill in necessary forms for changes.</p>
+                                <hr>
+                                <p>To make changes verify your password.</p>
+                                <br><label for="password"><b>Enter password</b></label>
+                                <br><input type="password" placeholder="Enter Password" name="password" id="password" required>
+
+                                <label for="name"><b>Change Name</b></label>
+                                <br><input type="text" placeholder="Enter Name" name="name" id="name" required>
+
+                                <br><label for="email"><b>Change Email</b></label>
+                                <br><input type="text" placeholder="Enter Email" name="email" id="email" required>
+
+                                <br><label for="password"><b>Change Password (Enter New Password)</b></label>
+                                <br><input type="password" placeholder="Enter New Password" name="passwordNew" id="passwordNew" required>
+
+                                <br><label for="psw-repeat"><b>Repeat Password (Repeat New Password)</b></label>
+                                <br><input type="password" placeholder="Repeat New Password" name="psw-repeatNew" id="psw-repeatNew" required>
+                                <hr>
+
+                                <button type="submit" class="registerbtn">Register</button>
                     </div>
-                {% endfor %}
             </div>
         </div>
     </div>
